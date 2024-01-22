@@ -8,6 +8,4 @@ import java.util.List;
 
 @Repository
 public interface TypesQuestionRepository extends JpaRepository<TypesQuestion,Integer> {
-
-    //public List<TypesQuestion> findAllByQuestionsId(Integer id);
 }
