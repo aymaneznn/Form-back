@@ -4,6 +4,7 @@ import fr.okteo.formcreatorback.dto.*;
 import fr.okteo.formcreatorback.dto.mapper.*;
 import fr.okteo.formcreatorback.model.*;
 import fr.okteo.formcreatorback.repository.*;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -59,10 +60,13 @@ public class FormulaireService {
     public List<QuestionDto> getQuestionsByFormulaire(Integer id){
         return questionMapper.entityToDTOList(questionRepository.findAllByFormulaireId(id));
     }
-    public TypesQuestionDto getTypeQuestionByQuestion(Integer id){
-        Question question = questionRepository.findById(id).get();
+    public TypesQuestionDto getTypeQuestionByQuestion(Integer id) {
+        Question question = questionRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Question not found for ID: " + id));
+
         return typesQuestionMapper.entityToDTO(question.getTypeQuestion());
     }
+
     public ResponseEntity<Void> createQuestion(QuestionDto questionDto) {
         Question question = questionMapper.dtoToEntity(questionDto);
         questionRepository.save(question);

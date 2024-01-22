@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 public class ResponseController {
+
+    private ResponseController() {
+    }
     public static <T> ResponseEntity<ResponseModel> creerResponseEntity(Callable<T> fonction, Logger logger, List<Class<? extends Exception>> typesExceptionsMetier) {
         return creerResponseEntity(fonction, logger, typesExceptionsMetier, false);
     }
