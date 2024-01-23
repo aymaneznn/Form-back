@@ -42,7 +42,6 @@ public class FormulaireService {
             return String.valueOf(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage));
         }
     }
-
     public ResponseEntity<String> createFormulaire(FormulaireDto formulaireDto) {
         try {
             // Vérifier si l'utilisateur associé au formulaire existe
