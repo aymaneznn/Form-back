@@ -5,13 +5,16 @@ import fr.okteo.formcreatorback.dto.mapper.*;
 import fr.okteo.formcreatorback.model.*;
 import fr.okteo.formcreatorback.repository.*;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
+@RequiredArgsConstructor
+@Service
 public class FormulaireService {
+
     private final FormulaireRepository formulaireRepository;
     private final QuestionRepository questionRepository;
     private final ReponseRepository reponseRepository;
@@ -27,24 +30,6 @@ public class FormulaireService {
     private final DonneesStatistiqueMapper donneesStatistiqueMapper;
     private final GestionUtilisateurMapper gestionUtilisateurMapper;
 
-    public FormulaireService(FormulaireRepository formulaireRepository, QuestionRepository questionRepository, ReponseRepository reponseRepository, ParametreAvanceRepository parametreAvanceRepository, DonneesStatistiqueRepository donneesStatistiqueRepository, GestionUtilisateurRepository gestionUtilisateurRepository, FormulaireMapper formulaireMapper, QuestionMapper questionMapper, ReponseMapper reponseMapper, TypesQuestionMapper typesQuestionMapper, ParametrageAvanceMapper parametrageAvanceMapper, DonneesStatistiqueMapper donneesStatistiqueMapper, GestionUtilisateurMapper gestionUtilisateurMapper) {
-
-        this.formulaireRepository = formulaireRepository;
-        this.questionRepository = questionRepository;
-        this.reponseRepository = reponseRepository;
-        this.parametreAvanceRepository = parametreAvanceRepository;
-        this.donneesStatistiqueRepository = donneesStatistiqueRepository;
-        this.gestionUtilisateurRepository = gestionUtilisateurRepository;
-
-        this.formulaireMapper = formulaireMapper;
-        this.questionMapper = questionMapper;
-        this.reponseMapper = reponseMapper;
-        this.typesQuestionMapper = typesQuestionMapper;
-        this.parametrageAvanceMapper = parametrageAvanceMapper;
-        this.donneesStatistiqueMapper = donneesStatistiqueMapper;
-        this.gestionUtilisateurMapper = gestionUtilisateurMapper;
-
-    }
     public List<FormulaireDto> getAllFormulaires(){
         return formulaireMapper.entityToDTOList(formulaireRepository.findAll());
     }
@@ -66,7 +51,6 @@ public class FormulaireService {
 
         return typesQuestionMapper.entityToDTO(question.getTypeQuestion());
     }
-
     public ResponseEntity<Void> createQuestion(QuestionDto questionDto) {
         Question question = questionMapper.dtoToEntity(questionDto);
         questionRepository.save(question);
@@ -100,5 +84,4 @@ public class FormulaireService {
     public List<GestionUtilisateurDto> getGestionUtilisateurByFormulaire(Integer id){
         return gestionUtilisateurMapper.entityToDTOList(gestionUtilisateurRepository.findAllByFormulaireId(id));
     }
-
 }

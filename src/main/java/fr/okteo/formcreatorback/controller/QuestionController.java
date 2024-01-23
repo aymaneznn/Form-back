@@ -2,6 +2,7 @@ package fr.okteo.formcreatorback.controller;
 import fr.okteo.formcreatorback.dto.QuestionDto;
 import fr.okteo.formcreatorback.dto.ResponseModel;
 import fr.okteo.formcreatorback.service.FormulaireService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
@@ -10,17 +11,13 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
-
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/question")
 public class QuestionController {
     private static final Logger LOGGER = LoggerFactory.getLogger(QuestionController.class);
 
     private final FormulaireService formulaireService;
-
-    public QuestionController(FormulaireService formulaireService) {
-        this.formulaireService = formulaireService;
-    }
 
     @GetMapping(value = {"/get-questions-by-formulaire/{idFormulaire}"})
     public ResponseEntity<ResponseModel> getQuestionsByFormulaire(@PathVariable Integer idFormulaire) {

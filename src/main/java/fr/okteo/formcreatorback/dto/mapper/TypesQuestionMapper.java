@@ -12,8 +12,6 @@ public interface TypesQuestionMapper {
 
     List<TypesQuestionDto> entityToDTOList(List<TypesQuestion> model);
 
-    TypesQuestionDto toDto(TypesQuestion typesQuestion);
-
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     TypesQuestion partialUpdate(TypesQuestionDto typesQuestionDto, @MappingTarget TypesQuestion typesQuestion);
 
