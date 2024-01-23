@@ -32,13 +32,13 @@ public class ReponseController {
         return ResponseController.creerResponseEntity(f, LOGGER, new ArrayList<>());
     }
 
-    @GetMapping(value = {"/create-reponse"})
+    @PostMapping(value = {"/create-reponse"})
     public ResponseEntity<ResponseModel> saveReponse(@RequestBody ReponseDto reponseDto) {
         Callable<Object> f = () -> formulaireService.createReponse(reponseDto);
         return ResponseController.creerResponseEntity(f, LOGGER, new ArrayList<>());
     }
 
-    @GetMapping(value = {"/delete-reponse/{idReponse}"})
+    @DeleteMapping(value = {"/delete-reponse/{idReponse}"})
     public ResponseEntity<ResponseModel> deleteReponse(@PathVariable Integer idReponse) {
         Callable<Object> f = () -> formulaireService.deleteReponseByID(idReponse);
         return ResponseController.creerResponseEntity(f, LOGGER, new ArrayList<>());

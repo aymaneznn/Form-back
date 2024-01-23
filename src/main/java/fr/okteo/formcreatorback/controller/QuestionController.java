@@ -37,7 +37,7 @@ public class QuestionController {
         return ResponseController.creerResponseEntity(f, LOGGER, new ArrayList<>());
     }
 
-    @GetMapping(value = {"/delete-question/{idQuestion}"})
+    @DeleteMapping(value = {"/delete-question/{idQuestion}"})
     public ResponseEntity<ResponseModel> deleteQuestion(@PathVariable Integer idQuestion) {
         Callable<Object> f = () -> formulaireService.deleteQuestionByID(idQuestion);
         return ResponseController.creerResponseEntity(f, LOGGER, new ArrayList<>());

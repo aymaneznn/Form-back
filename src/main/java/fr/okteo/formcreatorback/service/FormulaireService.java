@@ -75,14 +75,28 @@ public class FormulaireService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
         }
     }
-    public List<QuestionDto> getQuestionsByFormulaire(Integer id){
-        return questionMapper.entityToDTOList(questionRepository.findAllByFormulaireId(id));
+    public List<QuestionDto> getQuestionsByFormulaire(Integer id) {
+        try {
+            return questionMapper.entityToDTOList(questionRepository.findAllByFormulaireId(id));
+        } catch (Exception e) {
+            String errorMessage = "Erreur lors de la récupération des questions pour le formulaire avec l'ID " + id + ": " + e.getMessage();
+            throw new RuntimeException(errorMessage, e);
+        }
     }
-    public TypesQuestionDto getTypeQuestionByQuestion(Integer id) {
-        Question question = questionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Question not found for ID: " + id));
 
-        return typesQuestionMapper.entityToDTO(question.getTypeQuestion());
+    public TypesQuestionDto getTypeQuestionByQuestion(Integer id) {
+        try {
+            Question question = questionRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Question not found for ID: " + id));
+
+            return typesQuestionMapper.entityToDTO(question.getTypeQuestion());
+        } catch (EntityNotFoundException e) {
+            String errorMessage = "Question non trouvée pour l'ID : " + id;
+            throw new RuntimeException(errorMessage, e);
+        } catch (Exception e) {
+            String errorMessage = "Erreur lors de la récupération du type de question pour la question avec l'ID " + id + ": " + e.getMessage();
+            throw new RuntimeException(errorMessage, e);
+        }
     }
     public ResponseEntity<String> createQuestion(QuestionDto questionDto) {
         try {
