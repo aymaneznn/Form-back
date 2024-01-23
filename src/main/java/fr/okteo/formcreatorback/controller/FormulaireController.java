@@ -28,13 +28,13 @@ public class FormulaireController {
         return ResponseController.creerResponseEntity(f, LOGGER, new ArrayList<>());
     }
 
-    @GetMapping(value = {"/create-formulaire"})
+    @PostMapping(value = {"/create-formulaire"})
     public ResponseEntity<ResponseModel> saveFormulaire(@RequestBody FormulaireDto formulaireDto) {
         Callable<Object> f = () -> formulaireService.createFormulaire(formulaireDto);
         return ResponseController.creerResponseEntity(f, LOGGER, new ArrayList<>());
     }
 
-    @GetMapping(value = {"/delete-formulaire/{idFormulaire}"})
+    @DeleteMapping(value = {"/delete-formulaire/{idFormulaire}"})
     public ResponseEntity<ResponseModel> deleteFormulaire(@PathVariable Integer idFormulaire) {
         Callable<Object> f = () -> formulaireService.deleteFormulaireByID(idFormulaire);
         return ResponseController.creerResponseEntity(f, LOGGER, new ArrayList<>());

@@ -31,7 +31,7 @@ public class QuestionController {
         return ResponseController.creerResponseEntity(f, LOGGER, new ArrayList<>());
     }
 
-    @GetMapping(value = {"/create-question"})
+    @PostMapping(value = {"/create-question"})
     public ResponseEntity<ResponseModel> saveQuestion(@RequestBody QuestionDto questionDto) {
         Callable<Object> f = () -> formulaireService.createQuestion(questionDto);
         return ResponseController.creerResponseEntity(f, LOGGER, new ArrayList<>());
