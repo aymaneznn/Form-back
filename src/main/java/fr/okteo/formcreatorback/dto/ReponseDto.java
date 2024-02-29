@@ -1,5 +1,9 @@
 package fr.okteo.formcreatorback.dto;
 
+import fr.okteo.formcreatorback.dto.FormulaireDto;
+import fr.okteo.formcreatorback.dto.QuestionDto;
+import fr.okteo.formcreatorback.dto.TypesQuestionDto;
+import fr.okteo.formcreatorback.dto.UtilisateurDto;
 import fr.okteo.formcreatorback.model.Reponse;
 import lombok.Value;
 
@@ -13,10 +17,10 @@ import java.util.Map;
 @Value
 public class ReponseDto implements Serializable {
     Integer id;
-    String formulaireId;
-    Integer questionId;
-    Integer typeReponseId;
-    Integer utilisateurId;
+    FormulaireDto formulaire;
+    QuestionDto question;
+    TypesQuestionDto typeReponse;
+    UtilisateurDto utilisateur;
     LocalDate posterLe;
     Map<String, Object> donneesReponse;
     String idGroupReponse;
