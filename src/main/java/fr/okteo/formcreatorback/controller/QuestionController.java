@@ -20,7 +20,7 @@ public class QuestionController {
     private final FormulaireService formulaireService;
 
     @GetMapping(value = {"/get-questions-by-formulaire/{idFormulaire}"})
-    public ResponseEntity<ResponseModel> getQuestionsByFormulaire(@PathVariable Integer idFormulaire) {
+    public ResponseEntity<ResponseModel> getQuestionsByFormulaire(@PathVariable String idFormulaire) {
         Callable<Object> f = () -> formulaireService.getQuestionsByFormulaire(idFormulaire);
         return ResponseController.creerResponseEntity(f, LOGGER, new ArrayList<>());
     }

@@ -35,25 +35,25 @@ public class FormulaireController {
     }
 
     @DeleteMapping(value = {"/delete-formulaire/{idFormulaire}"})
-    public ResponseEntity<ResponseModel> deleteFormulaire(@PathVariable Integer idFormulaire) {
+    public ResponseEntity<ResponseModel> deleteFormulaire(@PathVariable String idFormulaire) {
         Callable<Object> f = () -> formulaireService.deleteFormulaireByID(idFormulaire);
         return ResponseController.creerResponseEntity(f, LOGGER, new ArrayList<>());
     }
 
     @GetMapping(value = {"/get-parametre-avance-by-formulaire/{idFormulaire}"})
-    public ResponseEntity<ResponseModel> getParametrageAvanceByFormulaire(@PathVariable Integer idFormulaire) {
+    public ResponseEntity<ResponseModel> getParametrageAvanceByFormulaire(@PathVariable String idFormulaire) {
         Callable<Object> f = () -> formulaireService.getParametreAvanceByFormulaire(idFormulaire);
         return ResponseController.creerResponseEntity(f, LOGGER, new ArrayList<>());
     }
 
     @GetMapping(value = {"/get-donnees-statistique-by-formulaire/{idFormulaire}"})
-    public ResponseEntity<ResponseModel> getDonneesStatistiqueByFormulaire(@PathVariable Integer idFormulaire) {
+    public ResponseEntity<ResponseModel> getDonneesStatistiqueByFormulaire(@PathVariable String idFormulaire) {
         Callable<Object> f = () -> formulaireService.getDonneesStatistiquesByFormulaire(idFormulaire);
         return ResponseController.creerResponseEntity(f, LOGGER, new ArrayList<>());
     }
 
     @GetMapping(value = {"/get-gestion-utilisateur-by-formulaire/{idFormulaire}"})
-    public ResponseEntity<ResponseModel> getGestionUtilisateurByFormulaire(@PathVariable Integer idFormulaire) {
+    public ResponseEntity<ResponseModel> getGestionUtilisateurByFormulaire(@PathVariable String idFormulaire) {
         Callable<Object> f = () -> formulaireService.getGestionUtilisateurByFormulaire(idFormulaire);
         return ResponseController.creerResponseEntity(f, LOGGER, new ArrayList<>());
     }

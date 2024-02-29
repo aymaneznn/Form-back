@@ -25,4 +25,7 @@ public class Question {
     @JoinColumn(name = "type_question_id")
     private TypesQuestion typeQuestion;
 
+    @Column(name = "options_question")
+    private String optionsQuestion;
+
 }

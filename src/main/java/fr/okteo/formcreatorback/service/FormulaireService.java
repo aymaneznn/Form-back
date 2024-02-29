@@ -64,7 +64,7 @@ public class FormulaireService {
         }
     }
 
-    public ResponseEntity<String> deleteFormulaireByID(Integer formulaireId) {
+    public ResponseEntity<String> deleteFormulaireByID(String formulaireId) {
         try {
             formulaireRepository.deleteById(formulaireId);
             return ResponseEntity.ok().build();
@@ -75,7 +75,7 @@ public class FormulaireService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
         }
     }
-    public List<QuestionDto> getQuestionsByFormulaire(Integer id) {
+    public List<QuestionDto> getQuestionsByFormulaire(String id) {
         try {
             return questionMapper.entityToDTOList(questionRepository.findAllByFormulaireId(id));
         } catch (Exception e) {
@@ -101,8 +101,7 @@ public class FormulaireService {
     public ResponseEntity<String> createQuestion(QuestionDto questionDto) {
         try {
             // Vérifier si le formulaire associé à la question existe
-            Formulaire existingFormulaire = formulaireRepository.findById(questionDto.getFormulaire().getId())
-                    .orElseThrow(() -> new EntityNotFoundException("Le formulaire associé à la question n'existe pas"));
+            List<Formulaire> existingFormulaire = formulaireRepository.findAllByFormulaireId(questionDto.getFormulaire().getId());
 
             // Vérifier si le type de question existe
             TypesQuestion existingTypeQuestion = typesQuestionRepository.findById(questionDto.getTypeQuestion().getId())
@@ -110,7 +109,7 @@ public class FormulaireService {
 
             // Créer la question
             Question question = questionMapper.dtoToEntity(questionDto);
-            question.setFormulaire(existingFormulaire);
+            question.setFormulaire(existingFormulaire.get(0));
             question.setTypeQuestion(existingTypeQuestion);
             questionRepository.save(question);
 
@@ -131,25 +130,38 @@ public class FormulaireService {
     public List<ReponseDto> getReponsesByQuestion(Integer id){
         return reponseMapper.entityToDTOList(reponseRepository.findAllByQuestionId(id));
     }
-    public List<ReponseDto> getReponsesByFormulaire(Integer id){
+    public List<ReponseDto> getReponsesByFormulaire(String id){
         return reponseMapper.entityToDTOList(reponseRepository.findAllByFormulaireId(id));
     }
-    public ResponseEntity<Void> createReponse(ReponseDto reponseDto) {
-        Reponse reponse = reponseMapper.dtoToEntity(reponseDto);
-        reponseRepository.save(reponse);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<String> createReponse(ReponseDto reponseDto) {
+        try {
+            // Your existing logic to convert DTO to Entity and save in the repository
+            Reponse reponse = reponseMapper.dtoToEntity(reponseDto);
+            reponseRepository.save(reponse);
+
+            // Return success response with HTTP status 200
+            return ResponseEntity.ok().build();
+        } catch (EntityNotFoundException e) {
+            // Handle entity not found exception (HTTP status 400)
+            String errorMessage = "Error creating response: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage + " : " + e.getMessage());
+        } catch (Exception e) {
+            // Handle other unexpected errors (HTTP status 500)
+            String errorMessage = "Error creating response: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
+        }
     }
     public ResponseEntity<Void> deleteReponseByID(Integer reponseId) {
         reponseRepository.deleteById(reponseId);
         return ResponseEntity.ok().build();
     }
-    public List<ParametrageAvanceDto> getParametreAvanceByFormulaire(Integer id){
+    public List<ParametrageAvanceDto> getParametreAvanceByFormulaire(String id){
         return parametrageAvanceMapper.entityToDTOList(parametreAvanceRepository.findAllByFormulaireId(id));
     }
-    public List<DonneesStatistiqueDto> getDonneesStatistiquesByFormulaire(Integer id){
+    public List<DonneesStatistiqueDto> getDonneesStatistiquesByFormulaire(String id){
         return donneesStatistiqueMapper.entityToDTOList(donneesStatistiqueRepository.findAllByFormulaireId(id));
     }
-    public List<GestionUtilisateurDto> getGestionUtilisateurByFormulaire(Integer id){
+    public List<GestionUtilisateurDto> getGestionUtilisateurByFormulaire(String id){
         return gestionUtilisateurMapper.entityToDTOList(gestionUtilisateurRepository.findAllByFormulaireId(id));
     }
 }

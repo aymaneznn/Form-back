@@ -42,4 +42,6 @@ public class Reponse {
     @JdbcTypeCode(SqlTypes.JSON)
     private Map<String, Object> donneesReponse;
 
+    @Column(name = "id_group_reponse", length = Integer.MAX_VALUE)
+    private String idGroupReponse;
 }

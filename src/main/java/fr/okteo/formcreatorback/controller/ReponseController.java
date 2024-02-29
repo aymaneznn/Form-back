@@ -27,7 +27,7 @@ public class ReponseController {
     }
 
     @GetMapping(value = {"/get-reponses-by-formulaire/{idFormulaire}"})
-    public ResponseEntity<ResponseModel> getReponsesByFormulaire(@PathVariable Integer idFormulaire) {
+    public ResponseEntity<ResponseModel> getReponsesByFormulaire(@PathVariable String idFormulaire) {
         Callable<Object> f = () -> formulaireService.getReponsesByFormulaire(idFormulaire);
         return ResponseController.creerResponseEntity(f, LOGGER, new ArrayList<>());
     }

@@ -12,9 +12,8 @@ import java.time.LocalDate;
 @Table(name = "formulaire")
 public class Formulaire {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "formulaire_id", nullable = false)
-    private Integer id;
+    @Column(name = "formulaire_id", nullable = false, length = Integer.MAX_VALUE)
+    private String formulaireId;
 
     @Column(name = "titre")
     private String titre;
@@ -32,4 +31,11 @@ public class Formulaire {
     @Column(name = "modifie_le")
     private LocalDate modifieLe;
 
+    public void setId(String id) {
+        this.formulaireId = id;
+    }
+
+    public String getId() {
+        return this.formulaireId;
+    }
 }

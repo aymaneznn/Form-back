@@ -11,7 +11,7 @@ import java.time.LocalDate;
  */
 @Value
 public class FormulaireDto implements Serializable {
-    Integer id;
+    String id;
     String titre;
     String description;
     UtilisateurDto creerPar;

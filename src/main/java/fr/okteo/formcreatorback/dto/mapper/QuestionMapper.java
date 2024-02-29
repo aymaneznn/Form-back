@@ -6,18 +6,13 @@ import org.mapstruct.*;
 
 import java.util.List;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, uses = {FormulaireMapper.class, TypesQuestionMapper.class})
 public interface QuestionMapper {
-    Question toEntity(QuestionDto questionDto);
-
     List<QuestionDto> entityToDTOList(List<Question> model);
 
-    QuestionDto toDto(Question question);
+    @Mapping(target = "formulaire", ignore = true)
+    Question dtoToEntity(QuestionDto questionDto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Question partialUpdate(QuestionDto questionDto, @MappingTarget Question question);
-
-    Question dtoToEntity(QuestionDto questionDto);
-
-    Object entityToDTO(Question question);
 }
