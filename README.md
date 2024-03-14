@@ -13,11 +13,45 @@ Ce module vous permet de gérer des formulaires, des questions et des réponses 
 
 Ce module utilise plusieurs entités pour représenter les données des formulaires, des questions, des réponses et des utilisateurs :
 
-- **Formulaire**: Représente un formulaire avec des champs tels que le titre, la description, la date de création, etc.
-- **Question**: Représente une question dans un formulaire avec des détails tels que le texte de la question, le type de question, etc.
-- **Réponse**: Représente une réponse à une question spécifique dans un formulaire.
-- **TypesQuestion**: Représente les différents types de questions possibles, tels que texte libre, choix multiple, etc.
-- **Utilisateur**: Représente un utilisateur de l'application.
+### Formulaire
+
+- **formulaireId**: Identifiant unique du formulaire.
+- **titre**: Titre du formulaire.
+- **description**: Description du formulaire.
+- **creerPar**: L'utilisateur qui a créé le formulaire.
+- **creerLe**: Date de création du formulaire.
+- **modifieLe**: Date de dernière modification du formulaire.
+
+### Question
+
+- **id**: Identifiant unique de la question.
+- **formulaire**: Le formulaire auquel la question est associée.
+- **question**: Texte de la question.
+- **typeQuestion**: Le type de question (par exemple, texte libre, choix multiple, etc.).
+- **optionsQuestion**: Options supplémentaires pour les questions de type sélection (peut être null).
+
+### Réponse
+
+- **id**: Identifiant unique de la réponse.
+- **formulaire**: Le formulaire auquel la réponse est associée.
+- **question**: La question à laquelle la réponse est donnée.
+- **typeReponse**: Le type de réponse (peut être null en fonction du type de question).
+- **utilisateur**: L'utilisateur qui a fourni la réponse.
+- **posterLe**: Date de soumission de la réponse.
+- **donneesReponse**: Données de la réponse (sous forme de map).
+- **idGroupReponse**: Identifiant de groupe de la réponse (peut être null).
+
+### TypesQuestion
+
+- **id**: Identifiant unique du type de question.
+- **type**: Type de question (par exemple, texte libre, choix multiple, etc.).
+
+### Utilisateur
+
+- **id**: Identifiant unique de l'utilisateur.
+- **nom**: Nom de l'utilisateur.
+- **prenom**: Prénom de l'utilisateur.
+- **password**: Mot de passe de l'utilisateur.
 
 ## Contrôleurs
 
