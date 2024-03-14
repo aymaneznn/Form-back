@@ -9,6 +9,7 @@ Ce module expose les fonctionnalités de Form Creator en tant qu'API REST.
 
 Ce module vous permet de gérer des formulaires, des questions et des réponses dans votre application via des appels API REST. Il est conçu pour être utilisé avec un backend développé en Java avec le framework Spring Boot et une base de données relationnelle.
 
+---
 ## Modèles de données
 
 Ce module utilise plusieurs entités pour représenter les données des formulaires, des questions, des réponses et des utilisateurs :
@@ -52,7 +53,8 @@ Ce module utilise plusieurs entités pour représenter les données des formulai
 - **nom**: Nom de l'utilisateur.
 - **prenom**: Prénom de l'utilisateur.
 - **password**: Mot de passe de l'utilisateur.
-
+  
+---
 ## Contrôleurs
 
 Ce module expose plusieurs endpoints pour interagir avec les données des formulaires, des questions et des réponses :
