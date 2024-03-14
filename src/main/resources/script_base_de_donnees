@@ -1,0 +1,93 @@
+-- Drop tables if they exist
+DROP TABLE IF EXISTS Reponse;
+DROP TABLE IF EXISTS Question;
+DROP TABLE IF EXISTS Types_Question;
+DROP TABLE IF EXISTS Parametrage_Avance;
+DROP TABLE IF EXISTS Donnees_Statistiques;
+DROP TABLE IF EXISTS Gestion_Utilisateur;
+DROP TABLE IF EXISTS Formulaire;
+DROP TABLE IF EXISTS Utilisateur;
+
+-- Create tables
+CREATE TABLE Utilisateur (
+    utilisateur_id SERIAL PRIMARY KEY,
+    nom VARCHAR(255),
+    prenom VARCHAR(255),
+    password VARCHAR(255)
+);
+
+CREATE TABLE Formulaire (
+    formulaire_id TEXT PRIMARY KEY,
+    titre VARCHAR(255),
+    description VARCHAR(255),
+    creer_par INT,
+    creer_le DATE,
+    modifie_le DATE,
+    UNIQUE(formulaire_id),
+    FOREIGN KEY (creer_par) REFERENCES Utilisateur(utilisateur_id)
+);
+
+CREATE TABLE Gestion_Utilisateur (
+    gestion_utilisateur_id SERIAL PRIMARY KEY,
+    formulaire_id TEXT,
+    utilisateur_id INT,
+    permission VARCHAR(255),
+    FOREIGN KEY (formulaire_id) REFERENCES Formulaire(formulaire_id)
+);
+
+CREATE TABLE Donnees_Statistiques (
+    donnees_statistiques_id SERIAL PRIMARY KEY,
+    formulaire_id TEXT,
+    intervalle_de_temps VARCHAR(255),
+    nom_donnee VARCHAR(255),
+    donnees VARCHAR(255),
+    FOREIGN KEY (formulaire_id) REFERENCES Formulaire(formulaire_id)
+);
+
+CREATE TABLE Parametrage_Avance (
+    parametrage_statistiques_id SERIAL PRIMARY KEY,
+    formulaire_id TEXT,
+    donnees VARCHAR(255),
+    FOREIGN KEY (formulaire_id) REFERENCES Formulaire(formulaire_id)
+);
+
+CREATE TABLE Types_Question (
+    types_question SERIAL PRIMARY KEY,
+    type VARCHAR(255)
+);
+
+CREATE TABLE Question (
+    question_id SERIAL PRIMARY KEY,
+    formulaire_id TEXT,
+    question VARCHAR(255),
+    type_question_id INT,
+    options_question VARCHAR(255),
+    FOREIGN KEY (formulaire_id) REFERENCES Formulaire(formulaire_id),
+    FOREIGN KEY (type_question_id) REFERENCES Types_Question(types_question)
+);
+
+CREATE TABLE Reponse (
+	reponse_id SERIAL PRIMARY KEY,
+	formulaire_id TEXT,
+	question_id INT,
+	type_reponse_id INT,
+	utilisateur_id INT,
+	poster_le DATE,
+	donnees_reponse jsonb,
+	id_group_reponse TEXT
+);
+
+-- Insert data for 3 users
+INSERT INTO Utilisateur (nom, prenom, password) VALUES
+('Zen', 'Aymane', 'azerty'),
+('User2LastName', 'User2FirstName', 'azerty'),
+('User3LastName', 'User3FirstName', 'azerty');
+
+-- Insert data for Types_Question
+INSERT INTO Types_Question (type) VALUES
+('checkbox'),
+('text'),
+('dropdown'),
+('inputNumber'),
+('inputText'),
+('multiSelect');
