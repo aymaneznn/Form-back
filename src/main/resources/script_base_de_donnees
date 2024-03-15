@@ -62,6 +62,7 @@ CREATE TABLE Question (
     question VARCHAR(255),
     type_question_id INT,
     options_question VARCHAR(255),
+    obligatoire BOOL,
     FOREIGN KEY (formulaire_id) REFERENCES Formulaire(formulaire_id),
     FOREIGN KEY (type_question_id) REFERENCES Types_Question(types_question)
 );

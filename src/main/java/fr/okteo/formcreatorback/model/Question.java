@@ -28,4 +28,7 @@ public class Question {
     @Column(name = "options_question")
     private String optionsQuestion;
 
+    @Column(name = "obligatoire")
+    private Boolean obligatoire;
+
 }
